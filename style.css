@@ -53,4 +53,7 @@ section {
     height: 250px;
     object-fit: cover;
 }
+html {
+  scroll-behavior: smooth;
+}
 
