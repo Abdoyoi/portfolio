@@ -25,14 +25,66 @@
 </nav>
 
 <main class="container mt-5">
-    <section>
-        <h2>About me
-        </h2>
-        <p>My name is Abdo i like football</p>
-        <p>I study computer science</p>
-        <p>I like pizza</p>
+
+    <!-- About Section -->
+    <section class="mb-5 text-center">
+        <h2>About Me</h2>
+        <p>My name is Abdo, I like football.</p>
+        <p>I study computer science.</p>
+        <p>I like pizza.</p>
+
+        <a href="#highlights" class="btn btn-dark mt-3">View My Highlights ↓</a>
     </section>
+
+
+    <!-- Highlights Section -->
+    <section id="highlights" class="mt-5">
+        <h2 class="text-center mb-4">Highlights</h2>
+
+        <div class="row g-4">
+
+            <!-- Video -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <video class="card-img-top" controls muted>
+                        <source src="media/VID_20667.mp4" type="video/mp4">
+                    </video>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Bowling</h5>
+                        <p class="card-text">Me bowling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="media/667.jpg" class="card-img-top" alt="Me and friend">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Friends</h5>
+                        <p class="card-text">Me and my friend.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <a href="https://music.youtube.com/watch?v=ENZZOh12tZ8" target="_blank">
+                        <img src="media/cas.jpeg" class="card-img-top" alt="CAS album cover">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Favourite Song</h5>
+                        <p class="card-text">"Cry" by CAS.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 </main>
+
 
 <footer class="text-white text-center p-3 mt-5">
     <p>© 2026 My Portfolio</p>

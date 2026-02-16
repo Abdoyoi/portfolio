@@ -48,3 +48,9 @@ section {
     padding: 15px;
     margin-bottom: 20px;
 }
+
+.card img, .card video {
+    height: 250px;
+    object-fit: cover;
+}
+
