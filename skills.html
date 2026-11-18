@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills | Abdo Zakaria</title>
+  <meta name="description" content="Technical and transferable skills with examples.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html">Abdo Zakaria</a>
+        <ul class="nav-list"><li><a class="nav-link" href="index.html">Home</a></li><li><a class="nav-link" href="projects.html">Projects</a></li><li><a class="nav-link" href="skills.html" aria-current="page">Skills</a></li><li><a class="nav-link" href="cv.html">CV</a></li><li><a class="nav-link" href="contact.html">Contact</a></li></ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container my-4">
+
+    <h1>Skills</h1>
+
+    <section aria-labelledby="tech">
+      <h2 id="tech">Technical skills</h2>
+      <p>Where I have used each skill so far:</p>
+      <table class="results">
+        <thead><tr><th scope="col">Skill</th><th scope="col">Where I have used it</th></tr></thead>
+        <tbody>
+          <tr><td>Python</td><td>Wordle solver (the entropy, expected-size and minimax search agents); chess move predictor</td></tr>
+          <tr><td>Machine learning</td><td>Rating-based move prediction on Lichess games; deep Q-learning in the Wordle project (CS21002)</td></tr>
+          <tr><td>Algorithms &amp; search</td><td>Implemented entropy, expected-size and minimax heuristics, compared across three word lists</td></tr>
+          <tr><td>Java &amp; Swing</td><td>Whispr: object-oriented model classes, managers and a multi-screen Swing GUI (CS12002); Multi-Paradigm Programming (CS21003)</td></tr>
+          <tr><td>Data structures</td><td>Custom queue and doubly linked list in Whispr (Java); hash table in the secure login system (C); HashSet for duplicate detection</td></tr>
+          <tr><td>C</td><td>Secure login system with a hash table</td></tr>
+          <tr><td>Software engineering</td><td>Automated tests in the Wordle project (19 passing) and in Whispr (32 logic checks plus a scripted interface test); planning and task allocation in team projects; Software Engineering module (CS21005)</td></tr>
+          <tr><td>HTML, CSS, JavaScript, Bootstrap</td><td>This portfolio; Front End Website Development module</td></tr>
+          <tr><td>Git &amp; GitHub</td><td>Hosting this site; version control for projects. See my <a href="https://github.com/Abdoyoi">GitHub profile</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="snippets" aria-labelledby="code">
+      <h2 id="code">Code examples</h2>
+      <p class="note">The Java examples are real code from my Whispr project. My Wordle code is in a private university repository and my chess code is no longer available, so the Python and C examples are short, simplified illustrations of techniques I used, not copies of the original files.</p>
+
+      <h3 class="h5 mt-4">Java: linked list removal and duplicate detection (real code from Whispr)</h3>
+      <p>Removing a chat means re-linking its neighbours, including the special cases at the start and end of the list. The contact manager uses a <code>HashSet</code> so it never has to scan every contact to spot a duplicate.</p>
+      <pre class="code"><code>// From Whispr: ChatLinkedList.java (doubly linked list of chats)
+public void remove(String chatId) {
+    ChatNode current = head;
+    while (current != null) {
+        if (current.chat.getChatId().equals(chatId)) {
+            if (current.prev != null) current.prev.next = current.next;
+            else head = current.next;                 // removing the first chat
+            if (current.next != null) current.next.prev = current.prev;
+            else tail = current.prev;                 // removing the last chat
+            size--;
+            return;
+        }
+        current = current.next;
+    }
+}
+
+// From Whispr: ContactManager.java (HashSet gives O(1) duplicate detection)
+public void addContact(Contact contact) {
+    if (phoneNumbers.add(contact.getPhoneNumber())) {
+        contactList.add(contact);
+    } else {
+        throw new IllegalArgumentException(&quot;Contact with this phone number already exists.&quot;);
+    }
+}</code></pre>
+
+      <h3 class="h5 mt-4">Python: choosing a Wordle guess by entropy</h3>
+      <p>Each possible guess splits the remaining answers into groups by its colour pattern. The best guess is the one that splits them most evenly, which gives the most information.</p>
+      <pre class="code"><code># Simplified illustration of the entropy idea (not the project&#x27;s exact code).
+# Pick the guess whose feedback patterns split the remaining candidates most evenly.
+from collections import Counter
+from math import log2
+
+def feedback(guess, target):
+    &quot;&quot;&quot;Return a tuple of 0 (grey), 1 (yellow) or 2 (green) for each letter.&quot;&quot;&quot;
+    result = [0] * 5
+    remaining = Counter(t for g, t in zip(guess, target) if g != t)
+    for i, (g, t) in enumerate(zip(guess, target)):
+        if g == t:
+            result[i] = 2
+        elif remaining[g] &gt; 0:
+            result[i] = 1
+            remaining[g] -= 1
+    return tuple(result)
+
+def entropy(guess, candidates):
+    counts = Counter(feedback(guess, c) for c in candidates)
+    n = len(candidates)
+    return -sum((c / n) * log2(c / n) for c in counts.values())
+
+def best_guess(guesses, candidates):
+    return max(guesses, key=lambda g: entropy(g, candidates))</code></pre>
+
+      <h3 class="h5 mt-4">C: looking up a user in a hash table</h3>
+      <p>Hashing the user ID jumps straight to the right slot instead of checking every user. Collisions are handled with a linked list.</p>
+      <pre class="code"><code>/* Simplified illustration of hash-table lookup (not the project&#x27;s exact code). */
+#include &lt;string.h&gt;
+
+#define TABLE_SIZE 101
+
+typedef struct User {
+    char id[32];
+    char password_hash[64];
+    struct User *next;          /* chaining handles collisions */
+} User;
+
+static User *table[TABLE_SIZE];
+
+static unsigned int hash(const char *s) {
+    unsigned int h = 5381;
+    while (*s) h = h * 33 + (unsigned char)*s++;
+    return h % TABLE_SIZE;
+}
+
+User *find_user(const char *id) {
+    for (User *u = table[hash(id)]; u != NULL; u = u-&gt;next)
+        if (strcmp(u-&gt;id, id) == 0)
+            return u;           /* found: average O(1) lookup */
+    return NULL;
+}</code></pre>
+    </section>
+
+    <section aria-labelledby="transferable">
+      <h2 id="transferable">Transferable skills</h2>
+      <div class="row">
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Planning &amp; leadership</h3>
+          <p class="mb-0"><strong>Example:</strong> In the CS12002 Whispr team project I planned the team meetings and handed out tasks, and I wrote the core application code.</p>
+        </div></div>
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Communication</h3>
+          <p class="mb-0"><strong>Example:</strong> I talk to customers face to face every week at Azzad&rsquo;s, and I explain ideas to teammates in group projects, including a four-person AI project that ended in a written group report.</p>
+        </div></div>
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Working under pressure</h3>
+          <p class="mb-0"><strong>Example:</strong> Azzad&rsquo;s is one of the busiest takeaways in Dundee. At peak times I prioritise orders so service stays quick and accurate.</p>
+        </div></div>
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Problem-solving</h3>
+          <p class="mb-0"><strong>Example:</strong> For the chess predictor I turned an open-ended question (&ldquo;what would a player at this rating do?&rdquo;) into a concrete tool, with Stockfish alongside as a point of comparison.</p>
+        </div></div>
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Learning quickly</h3>
+          <p class="mb-0"><strong>Example:</strong> In my first two years I moved from C and Java fundamentals to reinforcement learning, operating systems and software engineering.</p>
+        </div></div>
+        <div class="col-md-6"><div class="card h-100">
+          <h3 class="h5">Honest reporting</h3>
+          <p class="mb-0"><strong>Example:</strong> In the Wordle report we stated where the DQN failed to scale and what our experiments could not prove, instead of only showing the good results.</p>
+        </div></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-4 mt-5">
+    <div class="container small">
+      <p class="mb-1">&copy; 2026 Abdo Zakaria &middot;
+        <a href="https://www.linkedin.com/in/abdo-zakaria-60111644b">LinkedIn</a> &middot; <a href="https://github.com/Abdoyoi">GitHub</a></p>
+      <p class="mb-0"><strong>AI use acknowledgement:</strong> Generative AI (Claude, Anthropic) was used to help plan, write and
+        design this website and my CV, based on my own project reports and experience. I reviewed and edited the content and I am
+        responsible for its accuracy.</p>
+    </div>
+  </footer>
+</body>
+</html>
