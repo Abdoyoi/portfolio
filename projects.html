@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Abdo Zakaria</title>
+  <meta name="description" content="Machine learning, Java and C projects by Abdo Zakaria.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <nav class="navbar" aria-label="Main navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html">Abdo Zakaria</a>
+        <ul class="nav-list"><li><a class="nav-link" href="index.html">Home</a></li><li><a class="nav-link" href="projects.html" aria-current="page">Projects</a></li><li><a class="nav-link" href="skills.html">Skills</a></li><li><a class="nav-link" href="cv.html">CV</a></li><li><a class="nav-link" href="contact.html">Contact</a></li></ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container my-4">
+
+    <h1>Projects</h1>
+    <p>Four projects from my degree and personal work. Each one lists what it does, the technologies used, my role and what I learned.</p>
+
+    <section id="wordle" aria-labelledby="p1">
+      <h2 id="p1">AI-Based Wordle Solver</h2>
+      <p><em>Heuristic search vs Deep Reinforcement Learning &middot; Group project (team of four) &middot; CS21002, October 2026</em></p>
+      <dl class="project-meta">
+        <dt>Description</dt>
+        <dd>Wordle is a guessing game where each guess both tries to win and narrows down the hidden word. We built several agents that play it and compared them:
+        entropy, expected-size and minimax search, two simple baselines and a Deep Q-Network (DQN) that learns by trial and error. We tested them on different word lists
+        and under six-guess and four-guess limits.</dd>
+        <dt>Technologies</dt>
+        <dd><span class="tag">Python</span><span class="tag">Deep Q-learning</span><span class="tag">Heuristic search</span><span class="tag">Pygame</span><span class="tag">Java Swing</span><span class="tag">Automated tests</span></dd>
+        <dt>My role</dt>
+        <dd>Member of a four-person team. I built the search-based agents: the entropy, expected-size and minimax heuristics. Each one scores every legal guess against the words still possible, plays the best-scoring guess, and then filters the candidates using the colour feedback. The DQN, the playable game and the Java dashboard were built by other team members.</dd>
+        <dt>Challenges &amp; what I learned</dt>
+        <dd>The three heuristics rank guesses differently, so they trade off quality against speed: entropy needed the fewest guesses but was the slowest (about 147 ms per game on the standard list, compared with about 60 ms for expected-size and 51 ms for minimax). They are also greedy, so they only look one guess ahead and cannot guarantee the best possible play. The best known exact solution averages 3.421 guesses, and my entropy agent averaged 3.672.
+        Across the team&rsquo;s experiments the DQN beat search under a four-guess limit but won only 46% of games on the largest 12,953-word list, and our report is clear that we could not tell whether too little training or the bigger vocabulary was to blame. This taught me to be careful about what an experiment does and does not show, and to report limitations honestly.</dd>
+      </dl>
+
+      <table class="results">
+        <caption>Selected results from the group report (Dataset A: 2,309 standard answers). The search agents are my part; the DQN row is for comparison.</caption>
+        <thead><tr><th scope="col">Agent</th><th scope="col">Setting</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          <tr><td>Entropy search</td><td>6 guesses, all 2,309 answers</td><td>100% solved, 3.672 guesses on average</td></tr>
+          <tr><td>Expected-size search</td><td>6 guesses, all 2,309 answers</td><td>100% solved, 3.705 guesses on average</td></tr>
+          <tr><td>Minimax search</td><td>6 guesses, all 2,309 answers</td><td>100% solved, 3.803 guesses on average</td></tr>
+          <tr><td>Random-candidate baseline</td><td>6 guesses, all 2,309 answers</td><td>98.6% solved, 4.021 guesses on average</td></tr>
+          <tr><td>DQN (teammates&rsquo; work)</td><td>4 guesses, 347 held-out targets</td><td>96.83% solved (336 of 347)</td></tr>
+          <tr><td>Entropy search</td><td>4 guesses, 347 held-out targets</td><td>93.08% solved (323 of 347)</td></tr>
+        </tbody>
+      </table>
+      <p class="mt-3"><a class="btn-maroon" href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module">Wordle on GitHub</a></p>
+      <p class="note">The code is in the team&rsquo;s public repository, which is hosted on a teammate&rsquo;s GitHub account. My search agents are in the <code>wordle/</code> folder, and real excerpts of that code are on the <a href="skills.html#snippets">Skills page</a>.</p>
+    </section>
+
+    <section id="chess" aria-labelledby="p2">
+      <h2 id="p2">Chess Opponent Move Predictor</h2>
+      <p><em>Machine learning &middot; Individual project</em></p>
+      <dl class="project-meta">
+        <dt>Description</dt>
+        <dd>You enter a chess position and the tool predicts the most likely next move for you and for your opponent, based on each player&rsquo;s rating. It was trained on games from Lichess,
+        so it predicts what players at that level actually tend to play, not what the best move is. Stockfish&rsquo;s best move is shown alongside so you can compare the two.</dd>
+        <dt>Technologies</dt>
+        <dd><span class="tag">Python</span><span class="tag">Machine learning</span><span class="tag">Lichess game data</span><span class="tag">Stockfish</span></dd>
+        <dt>My role</dt>
+        <dd>Sole developer: I designed and built it, from preparing the game data to the prediction tool.</dd>
+        <dt>Challenges &amp; what I learned</dt>
+        <dd>Most chess tools tell you the objectively best move, but real players, especially at lower ratings, often play differently. The challenge was to model human behaviour for a given rating
+        rather than perfect play, and showing Stockfish next to the prediction made the gap between the two visible.</dd>
+      </dl>
+      <p class="note">The source code for this project has since been lost, so there is no repository to link. I can explain how it worked in an interview.</p>
+    </section>
+
+    <section id="messaging" aria-labelledby="p3">
+      <h2 id="p3">Whispr: Offline Messaging App</h2>
+      <p><em>Java Swing &middot; CS12002 team project (Year 1), extended afterwards</em></p>
+      <dl class="project-meta">
+        <dt>Description</dt>
+        <dd>Whispr is an offline messaging application with a Swing graphical interface, written in Java. You can open and reply to chats (with read/unread status), start new chats, edit your profile, manage and sort contacts, search every message by keyword, and save and load everything from text files.
+        The code is split into packages for the model, custom data structures, managers and the GUI.</dd>
+        <dt>Technologies</dt>
+        <dd><span class="tag">Java</span><span class="tag">Swing GUI</span><span class="tag">Linked lists &amp; queues</span><span class="tag">HashSet</span><span class="tag">File I/O</span><span class="tag">Object-oriented design</span><span class="tag">Automated testing</span></dd>
+        <dt>My role</dt>
+        <dd>I planned the team&rsquo;s meetings and tasks, and I wrote the core of the application: the model classes, the custom data structures, the managers and the first version of the interface.
+        After the module I extended it into a complete application. I used AI assistance (Claude) to connect search, save/load and contact management to the interface, fix bugs, and write the tests, and I am working through that code so I can explain every part.</dd>
+        <dt>Design decisions &amp; what I learned</dt>
+        <dd>
+          <ul>
+            <li><strong>Messages</strong> are stored in my own linked-list queue with a tail pointer, so adding a message is constant time.</li>
+            <li><strong>Chats</strong> are kept in a doubly linked list, so a chat can be unlinked without shifting other items. Chats can be re-sorted by most recent message or by contact name.</li>
+            <li><strong>Contacts</strong> use an <code>ArrayList</code> plus a <code>HashSet</code> of phone numbers, so a duplicate number is detected in constant time instead of by scanning the list.</li>
+            <li><strong>Deleting or editing a contact</strong> was one of the brief&rsquo;s &ldquo;wider implications&rdquo;. Chats store phone numbers rather than contact objects, so deleting a contact does not break old chats (the user chooses to keep them or delete them too), and changing a phone number re-links the existing chats.</li>
+            <li><strong>Saving</strong> writes the user, contacts, chats and messages to separate text files, linked by chat ID. Special characters in messages are escaped, so any text survives a save and load. Testing this found that the first version silently dropped users and contacts with an empty picture path.</li>
+            <li><strong>Search</strong> finds individual messages that contain all the keywords, newest first, and opens the chat scrolled to the message.</li>
+          </ul>
+        </dd>
+        <dt>Testing</dt>
+        <dd>32 automated checks on the data structures, contacts, search and the save/load round trip, plus a scripted test that drives the real interface (38 checks: opening chats, replying, searching, editing contacts, saving, loading and deleting).</dd>
+      </dl>
+      <div class="shots">
+        <figure><img src="assets/whispr-landing.png" alt="Whispr landing page listing chats newest first with an unread marker" width="225" height="375"><figcaption>Chat list</figcaption></figure>
+        <figure><img src="assets/whispr-chat.png" alt="A conversation shown as message bubbles with Delete Msg and Delete Chat buttons" width="225" height="375"><figcaption>Conversation</figcaption></figure>
+        <figure><img src="assets/whispr-search.png" alt="Search results with the keyword shown in bold" width="225" height="375"><figcaption>Search</figcaption></figure>
+        <figure><img src="assets/whispr-contacts.png" alt="Contacts list with add, edit, delete, view and sort buttons" width="225" height="375"><figcaption>Contacts</figcaption></figure>
+      </div>
+      <p class="mt-3"><a class="btn-maroon" href="https://github.com/Abdoyoi/whisper">View Whispr on GitHub</a></p>
+      <p class="note">More code examples from Whispr are on the <a href="skills.html#snippets">Skills page</a>.</p>
+    </section>
+
+    <section id="login" aria-labelledby="p4">
+      <h2 id="p4">Secure Login System</h2>
+      <p><em>C &middot; Individual university project</em></p>
+      <dl class="project-meta">
+        <dt>Description</dt>
+        <dd>A login system where users register with a user ID and password and then sign in. Registered users are stored in a chained hash table: the user ID picks one of 11 buckets, and users that share a bucket are linked in a list.
+        The program checks its input (user IDs from 1 to 2139, passwords of at most 40 characters), updates the password if a user registers again, can load registered users from a file, and frees all of its memory when it finishes.</dd>
+        <dt>Technologies</dt>
+        <dd><span class="tag">C</span><span class="tag">Hash tables (chained hashing)</span><span class="tag">Linked lists</span><span class="tag">Memory management</span><span class="tag">File input and validation</span></dd>
+        <dt>My role</dt>
+        <dd>Individual project. The header file with the data structures was supplied with the assignment, and I wrote the functions behind it: registering users, checking passwords, looking users up, loading users from a file and freeing the memory.</dd>
+        <dt>Challenges &amp; what I learned</dt>
+        <dd>In C you manage memory yourself, so I checked the result of <code>malloc</code>, checked the password length before every copy, and freed each user in every chain. The file loader had to cope with bad data: blank lines, Windows line endings, lines too long for the buffer, IDs that are not numbers and missing passwords.
+        I also learned why a hash table gives much faster lookups than scanning a whole list of users, and how chaining handles collisions. A limitation I am aware of is that passwords are stored and compared as plain text, and a real system would store salted hashes.</dd>
+      </dl>
+    </section>
+
+  </main>
+
+  <footer class="py-4 mt-5">
+    <div class="container small">
+      <p class="mb-1">&copy; 2026 Abdo Zakaria &middot;
+        <a href="https://www.linkedin.com/in/abdo-zakaria-60111644b">LinkedIn</a> &middot; <a href="https://github.com/Abdoyoi">GitHub</a></p>
+      <p class="mb-0"><strong>AI use acknowledgement:</strong> Generative AI (Claude, Anthropic) was used to help plan, write and
+        design this website and my CV, based on my own project reports and experience. I reviewed and edited the content and I am
+        responsible for its accuracy.</p>
+    </div>
+  </footer>
+</body>
+</html>
