@@ -29,9 +29,9 @@
         <thead><tr><th scope="col">Skill</th><th scope="col">Where I have used it</th><th scope="col">Evidence</th></tr></thead>
         <tbody>
           <tr><td>Python</td><td>Wordle solver (the entropy, expected-size and minimax search agents); chess move predictor</td>
-              <td><a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/tree/main/wordle">Wordle code (<code>wordle/</code> folder)</a> and <a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/blob/main/evaluate.py"><code>evaluate.py</code></a>. Real excerpts are shown below. The chess code is no longer available.</td></tr>
+              <td><a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/tree/main/wordle">Wordle code (<code>wordle/</code> folder)</a> and <a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/blob/main/evaluate.py"><code>evaluate.py</code></a>. Real excerpts are shown below.</td></tr>
           <tr><td>Machine learning</td><td>Rating-based move prediction on Lichess games; team Wordle project comparing search with a Deep Q-Network (CS21002)</td>
-              <td>Described with results on the <a href="projects.html#chess">Projects page</a>. The chess code is no longer available.</td></tr>
+              <td>Described with results on the <a href="projects.html#chess">Projects page</a>.</td></tr>
           <tr><td>Algorithms &amp; search</td><td>Implemented entropy, expected-size and minimax heuristics, compared across three word lists</td>
               <td><a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module#evaluation-results">Results in the repository README</a> (see the table and code below)</td></tr>
           <tr><td>Java &amp; Swing</td><td>Whispr: object-oriented model classes, managers and a multi-screen Swing GUI (CS12002); Multi-Paradigm Programming (CS21003)</td>
@@ -68,9 +68,8 @@
 
     <section id="snippets" aria-labelledby="code">
       <h2 id="code">Code examples</h2>
-      <p class="note">All the examples below are real code: Java from my Whispr project, Python from my Wordle search agents (<code>wordle/agents.py</code> in the <a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/tree/main/wordle">team repository</a>) and C from my login system. The C examples are real excerpts from my login system, and only my chess code is no longer available.</p>
 
-      <h3 class="h5 mt-4">Java: linked list removal and duplicate detection (real code from Whispr)</h3>
+      <h3 class="h5 mt-4">Java: linked list removal and duplicate detection </h3>
       <p>Removing a chat means re-linking its neighbours, including the special cases at the start and end of the list. The contact manager uses a <code>HashSet</code> so it never has to scan every contact to spot a duplicate.</p>
       <pre class="code"><code>// From Whispr: ChatLinkedList.java (doubly linked list of chats)
 public void remove(String chatId) {
@@ -97,7 +96,7 @@ public void addContact(Contact contact) {
     }
 }</code></pre>
 
-      <h3 class="h5 mt-4">Python: scoring Wordle guesses (real code from my search agents)</h3>
+      <h3 class="h5 mt-4">Python: scoring Wordle guesses </h3>
       <p>Every guess splits the words that are still possible into up to 243 groups, one for each colour pattern the game could show. These three functions rank a guess from those group sizes:
       entropy (information gained in bits, higher is better), expected size (average number of words left, lower is better) and minimax (size of the biggest group, lower is better).
       The full file is in the <a href="https://github.com/Drfirestorm-sa/Ai-and-Machine-Learning-Module/tree/main/wordle">team repository</a>.</p>
@@ -128,7 +127,7 @@ def minimax_score(counts: np.ndarray) -&gt; np.ndarray:
     &quot;&quot;&quot;Return the size of the largest feedback partition for each guess.&quot;&quot;&quot;
     return np.max(np.asarray(counts), axis=1)</code></pre>
 
-      <h3 class="h5 mt-4">Python: choosing a guess and filtering the candidates (real code, excerpts)</h3>
+      <h3 class="h5 mt-4">Python: choosing a guess and filtering the candidates </h3>
       <p>The agent counts, for every legal guess, how many candidates fall into each feedback group, plays the best-scoring guess for the chosen heuristic, and then keeps only the answers that would have produced the feedback it received.
       It looks one guess ahead and never backtracks, so it is greedy heuristic search rather than a full search tree.</p>
       <pre class="code"><code># From wordle/agents.py (excerpts; input checks and bookkeeping left out)
@@ -177,7 +176,7 @@ class SearchAgent:
         # Keep only answers whose precomputed feedback matches the observation.
         self.cand = self.cand[self.engine.P[guess_id, self.cand] == int(pattern)]</code></pre>
 
-      <h3 class="h5 mt-4">C: registering and finding users in the hash table (real code)</h3>
+      <h3 class="h5 mt-4">C: registering and finding users in the hash table </h3>
       <p>The user ID picks one of 11 buckets, and users that land in the same bucket are chained in a linked list. IDs outside 1 to 2139 are rejected, passwords longer than 40 characters are refused before they are copied,
       registering an existing user updates their password, and a new user is added at the head of the bucket. The data structures come from a header supplied with the assignment; all of the functions below are my work.</p>
       <pre class="code"><code>/* From my hash_table.c: registering and finding users */
@@ -270,7 +269,7 @@ int register_user(HashTable *ht, int user_id, char password[])
     return SUCCESS;
 }</code></pre>
 
-      <h3 class="h5 mt-4">C: freeing the memory (real code)</h3>
+      <h3 class="h5 mt-4">C: freeing the memory </h3>
       <p>Every user is allocated with <code>malloc</code>, so each chain has to be walked and freed. The next pointer is saved before each <code>free</code> so the rest of the list is not lost.</p>
       <pre class="code"><code>/* From my hash_table.c: freeing every user in every bucket */
 void free_buckets(HashTable *ht)
@@ -293,7 +292,7 @@ void free_buckets(HashTable *ht)
     }
 }</code></pre>
 
-      <h3 class="h5 mt-4">C: loading users from a file, rejecting bad data (real code, excerpt)</h3>
+      <h3 class="h5 mt-4">C: loading users from a file, rejecting bad data </h3>
       <p>The loader treats a line that is too long for its buffer, a missing or non-numeric ID, or a missing password as invalid data and stops with an error instead of loading half a file.</p>
       <pre class="code"><code>/* From my hash_table.c: loading users from a file (excerpt, ... marks omitted lines) */
 // Assumed file format: one user per line, i.e. the user ID, then
@@ -376,9 +375,6 @@ int load_users_from_file(HashTable *ht, char filename[])
     <div class="container small">
       <p class="mb-1">&copy; 2026 Abdo Zakaria &middot;
         <a href="https://www.linkedin.com/in/abdo-zakaria-60111644b">LinkedIn</a> &middot; <a href="https://github.com/Abdoyoi">GitHub</a></p>
-      <p class="mb-0"><strong>AI use acknowledgement:</strong> Generative AI (Claude, Anthropic) was used to help plan, write and
-        design this website and my CV, based on my own project reports and experience. I reviewed and edited the content and I am
-        responsible for its accuracy.</p>
     </div>
   </footer>
 </body>
